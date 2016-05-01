@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="es"><head><!--[if IE]><!--Get a real browser!--><![endif]--><!--Do NOT read this file, the source is available--><meta charset="utf-8" /><title>Introducción a C</title><meta content="IIC2333 - Sistemas Operativos y Redes" name="description" /><meta content="Dietrich Daroch" name="author" /><meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /><link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet" /><link href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet" /><link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/zenburn.min.css" rel="stylesheet" /><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js" type="text/javascript"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" rel="stylesheet" /><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script><script>hljs.initHighlightingOnLoad();</script><style type="text/css">pre code.hljs {
+  display: block;
+}
+code.hljs {
+  display: inline;
+}
+
+// Hover stuff
+code:hover>div {
+  display: block;
+}
+code>div {
+  display: none;
+}
+table {
+  margin: auto;
+  //border-collapse: separate;
+  //border-spacing: 0 0.1em;
+}
+tr.sep {
+  margin-top: 0.2em;
+}
+td {
+  min-width:4em;
+}
+td.r2 {
+  rowspan: 2;
+}
+td.full {
+  color: #ddd;
+  background-color: #282;
+}
+td.empty {
+  color: #ddd;
+  background-color: #333;
+}
+
+// Fix dl/ dd-dt
+dl.inline dd {
+  display: inline;
+  margin: 0;
+}
+dl.inline dd:after{
+  display: block;
+  content: '';
+}
+dl.inline dt{
+  display: inline-block;
+  min-width: 100px;
+}
+
+section {
+  padding-top: 2em;
+}
+h1, h2, h3, h4, h5, h6 {
+  padding-top: 0.4em;
+}
+.top {
+  padding-top: 0.2em;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+.container-col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.container > img {
+  align-content: center;
+}
+.container-col > img {
+  align-content: center;
+}</style></head><body><header class="col-xs-12 col-md-8 col-md-offset-2"><h2>Sistemas Operativos y Redes</h2></header><div class="col-xs-12 col-md-8 col-md-offset-2"><section><h1>Introducción a C</h1></section><section class="top"><p>Esta introducción a C está pensada para gente que ya es familiar con algún lenguaje de programación imperativo como Java y Python.</p><p>La mayoría de las secciones presenta código.</p></section><article><section id="c-init"><h3>C</h3><p>C es un lenguaje de programación MUY simple. Es un lenguaje procedural y estructurado.</p><p>Los programas en C se componen de funciones, estas pueden llamar a otras funciones.</p><p>Tiene algunas diferencias con otros lenguajes imperativos comunes.</p><ul><li>No existen las clases, pero no son necesarias, ya que se puede usar un struct para guardar la información de los objetos.</li><li>Requiere administrar la memoria manualmente. Esto da más control, pero también requiere más trabajo.</li><li>Hay un preprocesador que permite generar código usando reemplazos sintácticos.</li></ul><section id="types"><h3>Tipos</h3><section class="top"><h5>Tipos básicos</h5><p>C tiene los tipos básicos usuales, de hecho, son usuales porque C los tenía.</p><ul style="-webkit-columns:2; -moz-columns:2; columns:2;  list-style-position: inside;"><li><code> char   </code></li><li><code> int    </code></li><li><code> float  </code></li><li><code> double </code></li></ul><p>También existe un tipo para representar algo que no tiene tipo, <code>void</code></p><p>El tamaño de los tipos depende de la implementación. El tamaño de un <strong>char</strong> está dado por la arquitectura, un char debe ser la unidad atómica de información direccionable, esta unidad es 1 Byte, que en las arquitecturas usuales son 8 bits. 'sizeof(T)' devuelve el tamaño en Bytes de un tipo.</p><p>Existen los modificadores unsigned, short y long para <code>int</code>.</p><p>El tamaño de los tipos depende de la implementación. En x86,</p><div><pre><table class="table-bordered" style="border: 1px solid black;"><tr><th>type</th><th colspan="4"> (x86) Word [4 Bytes]</th></tr><tr><td rowspan="2">char</td><td class="full"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr><td rowspan="2">short int</td><td class="full"></td><td class="full"></td><td class="empty"></td><td class="empty"></td></tr><tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr class="sep"><td rowspan="2">int</td><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr class="sep"><td rowspan="2">long int</td><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr class="sep"><td rowspan="2">long long int</td><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr class="sep"><td rowspan="2">float</td><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr><tr class="sep"><td rowspan="2">double</td><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr><tr><td class="full"></td><td class="full"></td><td class="full"></td><td class="full"></td></tr></table></pre></div><p>El orden de los bytes (endianness) también depende de la arquitectura.</p></section><section><h5>Structs y Unions</h5><p>A partir de estos se pueden agrupar para construir tipos más complejos en <strong>structs</strong> o <strong>unions</strong>. Ambos se acceden y crean de la misma manera.</p><p>La diferencia es que un <strong>struct</strong> tiene espacio independiente para cada miembro, mientras que una <strong>union</strong> sólo para el tipo más grande.</p><pre><code class="hljs">/* Defining new Data Types
+  ----------------------- */
+struct Wagen {
+  int  wert;
+  char farbe[20];  /* who needs strings :x?? */
+
+  union {  /* Unions provide shared storage (last write stays), they are not widely used */
+    char   c;
+    double f;
+  } kaputt;
+
+  union {
+    double speed;
+    double geschwindigkeit;
+  }; /* Anonymous union. Structs can also be anonymous */
+
+}; /* now 'struct Wagen' is a new type */
+
+
+typedef struct Wagen Car; /* now 'Car' is the type 'struct Wagen' */
+
+
+/* Declaring new cars
+  ------------------ */
+struct Wagen redCar;
+Car blueCars[7];
+/* Wagen derp;  'Wagen' is not a type (just a tag) */
+
+
+/* Using struct members
+  -------------------- */
+redCar.wert = 74000;
+redCar.geschwindigkeit = 347.31415;
+
+blueCars[2].kaputt.c = 'A'
+blueCars[2].kaputt.f = 2147483647.2357;  /* other union values are now corrupt */
+
+printf("This car costs %d and reaches %.1f km/h \n",
+      redCar.wert,   /* 74000 */
+      redCar.speed); /* 347.3 (union) */</code></pre></section><section><h5>Namespaces</h5><p>No hay namespaces por tipos, es decir, 'Car' no tiene sus propias funciones, sólo existe un namespace de tipos global <small>(y otro de tags)</small>, esto no es un problema siendo ordenados.</p><aside class="small">Python usa este mismo truco, de hecho 'self' no es un nombre especial.</aside><pre><code class="hljs">Car* car_new() {  /* new Car() */
+  /* ... */
+}
+void car_wash(Car* c) { /* c.wash() */
+  /* ... */
+}
+void car_wash_for(Car* c, int time) { /* c.wash(time) */
+  /* Overloading yields to name conflicts, but you can use a different name */
+  /* Other languages eventually use 'name mangling' to avoid conflicts,
+      but names look like _g4rb3137Age_# while debugging unless the
+      name mapping is available. */
+}</code></pre></section><section><h5>Punteros</h5><aside class="small"><a href="http://cdecl.org/">C decl</a></aside><pre><code class="hljs">char (*(*x[3])())[5]; /* perfectly valid C declaration */<div><img src="http://1.bp.blogspot.com/-o-Dp9_mVy9I/UUdoskHylZI/AAAAAAAAAIM/sdK8ASDKwro/s1600/spongebob-brain-fire.gif" /></div></code></pre><p>Los punteros agregan abstracción, las operaciones son sobre algún dato, o usando alguna función, pero sin saber específicamente cuál, solo su forma (tipo de dato o firma de la función)</p><p>Existen 2 operadores para manipular objetos y direcciones.</p><dl><dt>Address of</dt><dfn>&x</dfn><dd>Obtiene la dirección de (donde comienza) x</dd><dt>Dereference</dt><dfn>*x</dfn><dd>Es lo apuntado por x</dd></dl><p>Usar punteros crea tipos nuevos, ya que no es lo mismo tener un int o un struct que una referencia a él.</p><pre><code class="hljs">void car_wash(Car *c);</code></pre><p>La forma correcta de leer esa declaración es pensando que '*c' es de tipo 'Car', por lo que 'c' es un puntero que apunta a un 'Car'. Es más cómodo pensar que 'Car*' es un tipo, pero eso hace que las declaraciones múltiples sean extrañas.</p><pre><code class="hljs">int* a, b; /*  type(a): int*.   type(b): int  */</code></pre><h6>Usando punteros</h6><p>Es usual usar punteros para "pasar" structs a una función, así la función puede modificar el mismo struct que existe fuera de la función en vez de una copia de él.</p><pre><code class="hljs">void car_crash(Car* a, Car* b) {
+  /* <a href="https://xkcd.com/138/" target="_blank">(Relevant xkcd)</a> */
+  /* ' a' is a Car pointer (Car*) */
+  /* '*a' is the Car (Car) */
+  /* '&a' is a pointer to a, so it points to a Car pointer (Car*), it is a 'Car**' */
+
+
+  /* *a is the Car (Car), so this should work */
+  (*a).speed = 0;
+  /* This modifies the data pointed by a, so it better be a Car */
+  /* (parenthesis are needed because '.' has higher precedence than '*', */
+  /*    *a.m is the object pointed by a.m, not what we wanted) */
+
+  /* operator '->' is syntax sugar for '(*lhs).rhs' */
+  b->speed   = 0;
+
+  a->value = car_estimate_value(a);
+  b->value = car_estimate_value(b);
+}
+void f() {
+  void (*carCrashLikeFunction) (Car*, Car*) = &car_crash;
+  Car red, blue;
+  carCrashLikeFunction(&red, &blu);
+}</code></pre><p>Como cualquier trozo de memoria tiene que tener guardado algún número, entonces no hay cómo expresar el valor nulo. Es usual considerar que un puntero apuntando a la dirección 0 es en realidad un puntero inválido. Muchas veces definen 'NULL' como 0.</p><small>¿Qué guardará el primer byte de memoria?</small></section><section><h5>Memoria dinámica</h5><p>C Requiere administrar la memoria manualmente. Esto da más control, pero requiere más trabajo.</p><p>Se puede obtener acceso a más memoria usando 'malloc' (memory allocate), función que pide un trozo de memoria del SO de (al menos) x bytes.</p><p>Idealmente los programas deberían pedir recursos sólo mientras los necesitan, por lo que se deberían devolver al SO lo antes posible.</p><pre><code class="hljs">void* ptr = malloc(N); /* Allocate N bytes */
+/* Use ptr[] ... */
+free(ptr);   /* Now ptr points to unowned memory */
+ptr = NULL;  /* Now ptr is marked as invalid */</code></pre><pre><code class="hljs">int* manyInts = (int*) malloc( N * sizeof(int) );  /* Allocate N ints */
+if(manyInts) {  /* Allocation fails if there is not enough memory */
+  /* Do stuff with manyInts... */
+  free(manyInts);
+  manyInts = NULL;
+}</code></pre><p>Cuando se pide memoria es útil designar dónde debe ser devuelta.</p></section></section><section id="preprecessor"><h3>Preprocesador</h3><p>Para "facilitar la vida", existe el <strong>preprocesador</strong>, el que permite hacer operaciones sobre el código antes de compilarlo. Usualmente se usan nombres en mayúsculas para evitar confundirlas con funciones de C.</p><p>Lo más interesante del preprocesador son las 'macros', que son funciones que reciben argumentos. Se puede pensar que las constantes son funciones sin argumentos (pi()=3.1415)</p><pre><code class="hljs">#define MALLOC(T, N) ( ((T)*) malloc(N * sizeof(T)) )
+#define FREE(P) {free(T); P=NULL}
+#define PI 3.14159265358979323846
+
+int* canIHasManyInts(int n) {
+  int* manyInts = MALLOC(n, int);
+  /* =>
+    int* manyInts = ((int)*) malloc(n * sizeof(int)); */
+
+  /* ... */
+  return manyInts;  /* The caller should free 'manyInts' */
+}</code></pre><p>Si bien pueden parecer muy útiles, también hay que tener cuidado al usarlas. La expansión puede no tener el significado esperado si es que se calculan cosas al entregar los argumentos a la macro.</p><pre><code class="hljs">#square(X) X*X
+int x = square(2+6);  /* 8*8 != 20 = (2 + 6*2 + 6) */</code></pre><p>Puede ser usado de forma mal intencionada >=)</p><pre><code class="hljs">#define if(X) if(!(X))</code></pre></section></section></article></div><footer><div class="col-xs-12 col-md-8 col-md-offset-2"><p style="padding-top:4em;">Sistemas Operativos y Redes</p><p>Departamento de Ciencia de la Computación</p><p>Pontificia Universidad Católica de Chile</p></div></footer><script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css"></script><script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script><script>renderMathInElement(document.body)</script></body></html>
